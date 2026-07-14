@@ -1,14 +1,23 @@
 import os
 from datetime import timedelta
 
-# Ensure instance directory exists
-instance_path = os.path.join(os.path.dirname(__file__), 'instance')
-if not os.path.exists(instance_path):
-    os.makedirs(instance_path)
+
+def _get_default_db_path():
+    sqlite_path = os.environ.get('DB_PATH')
+    if sqlite_path:
+        return sqlite_path
+
+    instance_path = os.path.join(os.path.dirname(__file__), 'instance')
+    try:
+        os.makedirs(instance_path, exist_ok=True)
+        return os.path.join(instance_path, 'blog.db')
+    except OSError:
+        return os.path.join('/tmp', 'blog.db')
+
 
 class Config:
     """Base configuration"""
-    db_path = os.path.join(instance_path, 'blog.db')
+    db_path = _get_default_db_path()
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', f'sqlite:///{db_path.replace(chr(92), "/")}')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')

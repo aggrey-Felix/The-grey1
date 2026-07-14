@@ -190,6 +190,19 @@ Railway can deploy this Flask app directly from your GitHub repository.
 
 Railway will run `gunicorn app:app` automatically from the `Procfile`.
 
+### Deploying to Vercel
+
+This app can also run on Vercel using a Python serverless function adapter.
+
+1. Make sure `requirements.txt` includes `vercel_wsgi`.
+2. Add `vercel.json` and `api/index.py` to the project.
+3. Set environment variables on Vercel:
+   - `FLASK_CONFIG=ProductionConfig`
+   - `SECRET_KEY=your-secret-key`
+   - `DATABASE_URL` (recommended if you need a persistent database)
+
+> Note: Vercel serverless functions cannot write reliably to the project folder. The config now falls back to `/tmp/blog.db` when the repository folder is not writable.
+
 ### Recommended cloud deployment
 
 1. Add the project to Git and push to a host like Heroku, Render, or Railway.
