@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}About - My Blog{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <h1>About Me</h1>
+    
+    <div class="about-content">
+        <p>Welcome to my personal blog! This is where I share my thoughts, ideas, and stories on topics I'm passionate about.</p>
+        
+        <h2>What This Blog Is About</h2>
+        <p>Feel free to add your own about section here. You can edit this page by modifying the about.html template.</p>
+        
+        <h2>About This Blog</h2>
+        <p>This blog is built with Python using the Flask framework and SQLAlchemy for database management. It features a clean, simple design that focuses on readability and great content.</p>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="back-link">← Back to Blog</a>
+</div>
+{% endblock %}
